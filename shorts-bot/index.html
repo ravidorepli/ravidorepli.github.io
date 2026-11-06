@@ -1,0 +1,18 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><title>shorts-bot: TikTok connected</title></head>
+<body style="font-family:sans-serif;max-width:640px;margin:2rem auto;padding:0 1rem">
+<h1>shorts-bot</h1>
+<p id="msg">This is the TikTok login return page for shorts-bot.</p>
+<p><textarea id="url" readonly rows="5" style="width:100%;display:none"></textarea></p>
+<p><button id="copy" style="display:none;padding:.5rem 1rem">Copy address</button></p>
+<script>
+var q = new URLSearchParams(location.search);
+if (q.get('code')) {
+  document.getElementById('msg').textContent = 'TikTok login worked. Copy this address, then run the "Connect TikTok" workflow again and paste it into the box (within about 5 minutes).';
+  var t = document.getElementById('url'), b = document.getElementById('copy');
+  t.value = location.href; t.style.display = b.style.display = '';
+  b.onclick = function () { t.select(); navigator.clipboard.writeText(location.href); b.textContent = 'Copied'; };
+} else if (q.get('error')) {
+  document.getElementById('msg').textContent = 'TikTok login did not finish: ' + (q.get('error_description') || q.get('error'));
+}
+</script>
+</body></html>
